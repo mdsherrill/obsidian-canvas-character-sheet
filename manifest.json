@@ -1,0 +1,10 @@
+{
+	"id": "obsidian-canvas-character-sheet",
+	"name": "Canvas Character Sheet",
+	"version": "1.0.0",
+	"minAppVersion": "0.15.0",
+	"description": "Create D&D character sheets in Obsidian Canvas",
+	"author": "Obsidian",
+	"authorUrl": "https://obsidian.md",
+	"isDesktopOnly": true
+}
