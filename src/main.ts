@@ -1,4 +1,4 @@
-import {App, Editor, MarkdownView, Modal, Notice, Plugin} from 'obsidian';
+import {App, Editor, ItemView, MarkdownView, Modal, Notice, Plugin, WorkspaceLeaf} from 'obsidian';
 import {DEFAULT_SETTINGS, MyPluginSettings, SampleSettingTab} from "./settings";
 
 // Remember to rename these classes and interfaces!
@@ -9,6 +9,16 @@ export default class MyPlugin extends Plugin {
 	async onload() {
 		await this.loadSettings();
 		
+		this.registerView(
+			VIEW_TYPE_EXAMPLE,
+			(leaf) => new ExampleView(leaf)
+		);
+
+		const fruits = this.addStatusBarItem();
+		fruits.createDiv({});
+		fruits.createEl('span', { text: '🍎' });
+		fruits.createEl('span', { text: '🍌' });
+
 		// This creates an icon in the left ribbon.
 		this.addRibbonIcon('check', 'mf', (evt: MouseEvent) => {
 			// Called when the user clicks the icon.
@@ -81,6 +91,31 @@ export default class MyPlugin extends Plugin {
 		await this.saveData(this.settings);
 	}
 }
+
+export const VIEW_TYPE_EXAMPLE = 'example-view';
+
+export class ExampleView extends ItemView {
+  constructor(leaf: WorkspaceLeaf) {
+    super(leaf);
+  }
+
+  getViewType() {
+    return VIEW_TYPE_EXAMPLE;
+  }
+
+  getDisplayText() {
+    return 'Example view';
+  }
+
+  async onOpen() {
+    const container = this.contentEl;
+    container.empty();
+    container.createEl('h4', { text: 'Example view' });
+  }
+
+  async onClose() {
+    // Nothing to clean up.
+  }
 
 class SampleModal extends Modal {
 	constructor(app: App) {
