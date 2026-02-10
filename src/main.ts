@@ -116,6 +116,7 @@ export class ExampleView extends ItemView {
   async onClose() {
     // Nothing to clean up.
   }
+}
 
 class SampleModal extends Modal {
 	constructor(app: App) {
